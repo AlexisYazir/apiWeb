@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {login, register, logout, profile, verifyToken, questions, createUser,updateUser, roles, getUsers, deleteUser, getUser } from "../controllers/auth.controller.js";
+import {login, register, logout, profile, verifyToken, questions, findUserQuestion,findUser,createUser,updateUser, roles, getUsers, deleteUser, getUser } from "../controllers/auth.controller.js";
 import { authRequired } from "../middlewares/validateToken.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
 import { registerSchema,loginSchema } from "../schemas/auth.schema.js";
@@ -34,5 +34,9 @@ router.get('/users', authRequired, getUsers) //juever por la madrugada puse el a
 
 //para actualizar una tarea se espera un :id OKEYYYY
 router.put("/users/:id", authRequired, updateUser)
+
+router.post("/find-user", findUser);
+
+router.post("/find-user/:id", findUserQuestion)
 
 export default router;

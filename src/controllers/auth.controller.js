@@ -205,6 +205,46 @@ export const createUser = async (req, res) => {
   }
 };
 
+export const findUser = async (req, res) => {
+  try {
+    const { username, email } = req.body;
+
+    // Buscar usuario por nombre o email
+    const dataFound = await User.findOne({
+      $or: [{ username }, { email }]
+    });
+
+    if (!dataFound) {
+      return res.status(400).json(["Usted no se encuentra registrado. Intente de nuevo"]);
+    } else {
+      console.log("datos de consulta findUse"+dataFound);
+      return res.json(dataFound);
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(["Ocurrió un error al consultar el usuario"]);
+  }
+};
+
+// consultapara las preguntas
+
+export const findUserQuestion = async (req, res) => {
+  try {
+    console.log("ID recibido en backend:", req.params.id);
+    const findQuestion = await User.findById(req.params.id);
+    console.log("Resultado de la consulta:", findQuestion);
+
+    if (!findQuestion) {
+      return res.status(400).json(["Usted no se encuentra registrado. Intente de nuevo PREGUNTA"]);
+    } else {
+      return res.json(findQuestion);
+    }
+  } catch (error) {
+    console.error("Error en la consulta:", error);
+    return res.status(500).json(["Ocurrió un error al consultar el usuario"]);
+  }
+};
+
 export const updateUser = async (req, res) => {
     try {
         const { username, name, apellidoP, telefono, email, rol, pregunta, respuesta, imagen } = req.body;
@@ -266,10 +306,7 @@ export const updateUser = async (req, res) => {
         console.error("Error al actualizar usuario:", error);
         return res.status(500).json({ message: "Error interno del servidor" });
     }
-};
-
-
-  
+};  
 
 export const questions = async (req, res) => {
   try {

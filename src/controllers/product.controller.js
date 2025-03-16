@@ -8,7 +8,7 @@ export const getProducts = async (req, res) => {
         const products = await Product.find()
         res.json(products);
     } catch (error) {
-        return res.status(500).json({ message: "Ocurrió un error al obtener los productos" });
+        return res.status(500).json(["Ocurrió un error al obtener los productos" ]);
     }
 };
 
