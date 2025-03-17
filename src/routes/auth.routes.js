@@ -30,7 +30,7 @@ router.get('/questions', questions); // Ruta para obtener las preguntas
 
 router.get('/roles', roles);
 
-router.get('/users', authRequired, getUsers) //juever por la madrugada puse el authRequired
+router.get('/users', getUsers) //juever por la madrugada puse el authRequired
 
 //para actualizar una tarea se espera un :id OKEYYYY
 router.put("/users/:id", authRequired, updateUser)
